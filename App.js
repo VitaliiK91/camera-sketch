@@ -15,7 +15,6 @@ import FaceOverlay from './components/FaceOverlay';
 import CameraIcon from './components/CameraIcon';
 import RefreshIcon from './components/RefreshIcon';
 import CloudIcon from './components/CloudIcon';
-import Menu from './components/MenuIcon';
 import MenuIcon from './components/MenuIcon';
 
 const styles = StyleSheet.create({
@@ -44,6 +43,12 @@ const styles = StyleSheet.create({
 		right: 0,
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	Button: {
+		backgroundColor: 'rgb(140, 80,200)',
+	},
+	Halo: {
+		borderColor: 'rgb(140, 80,200)',
 	},
 });
 
@@ -77,13 +82,13 @@ class App extends PureComponent {
 					<MenuIcon />
 				</View>
 				<View style={styles.ButtonsContainer}>
-					<Button onPress={this.toggleCamera} buttonStyle={{ backgroundColor: 'purple' }}>
+					<Button onPress={this.toggleCamera} buttonStyle={styles.Button}>
 						<RefreshIcon />
 					</Button>
-					<Button isHalo onPress={this.takePicture} buttonStyle={{ backgroundColor: 'purple' }}>
+					<Button isHalo onPress={this.takePicture} buttonStyle={styles.Button} haloStyle={styles.Halo}>
 						<CameraIcon />
 					</Button>
-					<Button onPress={() => alert('Some action')} buttonStyle={{ backgroundColor: 'purple' }}>
+					<Button onPress={() => alert('Some action')} buttonStyle={styles.Button}>
 						<CloudIcon />
 					</Button>
 				</View>
