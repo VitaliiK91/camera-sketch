@@ -11,6 +11,12 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import Button from './components/Button';
+import FaceOverlay from './components/FaceOverlay';
+import CameraIcon from './components/CameraIcon';
+import RefreshIcon from './components/RefreshIcon';
+import CloudIcon from './components/CloudIcon';
+import Menu from './components/MenuIcon';
+import MenuIcon from './components/MenuIcon';
 
 const styles = StyleSheet.create({
 	MainContainer: {
@@ -25,25 +31,61 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		alignItems: 'center',
 	},
+	MenuContainer: {
+		position: 'absolute',
+		top: 34.57,
+		left: 16.29,
+	},
+	FaceOverlay: {
+		position: 'absolute',
+		top: -200,
+		bottom: 0,
+		left: 0,
+		right: 0,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 });
 
-const syncIcon = require('./assets/sync.png');
-const cloudIcon = require('./assets/cloud.png');
-const cameraIcon = require('./assets/camera.png');
-
 class App extends PureComponent {
-	doStuff() {
-		this.setState({});
+	state = {
+		isBackCamera: true,
+	};
+
+	takePicture = async () => {
+		const options = { quality: 0.5, base64: true };
+		const data = await this.camera.takePictureAsync(options);
+		return data;
+	}
+
+	toggleCamera = () => {
+		this.setState({ isBackCamera: !this.state.isBackCamera });
 	}
 
 	render() {
 		return (
 			<View style={styles.MainContainer}>
-				<RNCamera style={styles.MainContainer} />
+				<RNCamera
+					ref={(ref) => { this.camera = ref; }}
+					style={styles.MainContainer}
+					type={this.state.isBackCamera ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front}
+				/>
+				<View style={styles.FaceOverlay}>
+					<FaceOverlay />
+				</View>
+				<View style={styles.MenuContainer}>
+					<MenuIcon />
+				</View>
 				<View style={styles.ButtonsContainer}>
-					<Button onPress={() => alert(1)} icon={syncIcon} buttonStyle={{ backgroundColor: 'purple' }} />
-					<Button isHalo onPress={() => alert(2)} icon={cameraIcon} buttonStyle={{ backgroundColor: 'purple' }} />
-					<Button onPress={() => alert(3)} icon={cloudIcon} buttonStyle={{ backgroundColor: 'purple' }} />
+					<Button onPress={this.toggleCamera} buttonStyle={{ backgroundColor: 'purple' }}>
+						<RefreshIcon />
+					</Button>
+					<Button isHalo onPress={this.takePicture} buttonStyle={{ backgroundColor: 'purple' }}>
+						<CameraIcon />
+					</Button>
+					<Button onPress={() => alert('Some action')} buttonStyle={{ backgroundColor: 'purple' }}>
+						<CloudIcon />
+					</Button>
 				</View>
 			</View>
 		);

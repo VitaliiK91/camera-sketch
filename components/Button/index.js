@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-	Image,
 	StyleSheet,
 	TouchableOpacity,
 	View,
@@ -25,26 +24,19 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	Icon: {
-		tintColor: 'white',
-		flex: 1,
-		margin: 10,
-		width: 50,
-		height: 50,
-	},
 });
 
 const Button = props => props.isHalo ?
 	(
 		<View style={styles.Halo}>
 			<TouchableOpacity onPress={props.onPress} style={[styles.Button, props.buttonStyle]}>
-				<Image resizeMode="contain" source={props.icon} style={styles.Icon} />
+			{props.children}
 			</TouchableOpacity>
 		</View>
 	) :
 	(
 		<TouchableOpacity onPress={props.onPress} style={[styles.Button, props.buttonStyle]}>
-			<Image resizeMode="contain" source={props.icon} style={styles.Icon} />
+			{props.children}
 		</TouchableOpacity>
 	);
 
