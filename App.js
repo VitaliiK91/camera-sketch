@@ -4,55 +4,50 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
+	StyleSheet,
+	View,
 } from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
-  }
-}
+import { RNCamera } from 'react-native-camera';
+import Button from './components/Button';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+	MainContainer: {
+		flex: 1,
+	},
+	ButtonsContainer: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		bottom: 50,
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+	},
 });
+
+const syncIcon = require('./assets/sync.png');
+const cloudIcon = require('./assets/cloud.png');
+const cameraIcon = require('./assets/camera.png');
+
+class App extends PureComponent {
+	doStuff() {
+		this.setState({});
+	}
+
+	render() {
+		return (
+			<View style={styles.MainContainer}>
+				<RNCamera style={styles.MainContainer} />
+				<View style={styles.ButtonsContainer}>
+					<Button onPress={() => alert(1)} icon={syncIcon} buttonStyle={{ backgroundColor: 'purple' }} />
+					<Button isHalo onPress={() => alert(2)} icon={cameraIcon} buttonStyle={{ backgroundColor: 'purple' }} />
+					<Button onPress={() => alert(3)} icon={cloudIcon} buttonStyle={{ backgroundColor: 'purple' }} />
+				</View>
+			</View>
+		);
+	}
+}
+
+export default App;
